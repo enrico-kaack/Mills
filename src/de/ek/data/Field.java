@@ -14,6 +14,18 @@ public class Field {
 	public ArrayList<Field> neighboors = new ArrayList<>(3);
 	public ArrayList<Row> inRow = new ArrayList<>(3);
 	
+	public ArrayList<Field> getFreeNeighboors(){
+		ArrayList<Field> freeNeighboors = new ArrayList<>();
+		for (Field f: neighboors){
+			if (f.player == null){
+				freeNeighboors.add(f);
+			}
+		}
+		
+		return freeNeighboors;
+		
+	}
+	
 	
 	@Override
 	public String toString() {

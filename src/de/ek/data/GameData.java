@@ -14,6 +14,16 @@ public class GameData {
 	public int humanPlayerIndex = 0;
 	public int kiPlayerIndex = 1;
 	
+	public ArrayList<Field> getAllPlayerFields(Player player){
+		ArrayList<Field> fields = new ArrayList<>();
+		for (Field f:fields){
+			if (player.equals(f.player)){
+				fields.add(f);
+			}
+		}
+		return fields;
+	}
+	
 
 
 }

@@ -70,7 +70,7 @@ public class GameLogic {
 		
 	}
 
-	public Player switchPlayer(){
+	public void switchPlayer(){
 		if (this.game.data.activePlayerIndex == 0){
 			this.game.data.activePlayerIndex = 1;
 			this.game.data.activePlayer = this.game.data.players.get(this.game.data.activePlayerIndex);
@@ -78,12 +78,15 @@ public class GameLogic {
 			this.game.data.activePlayerIndex = 0;
 			this.game.data.activePlayer = this.game.data.players.get(this.game.data.activePlayerIndex);
 		}
-		return this.game.data.activePlayer;
+
+
+		if (this.game.data.activePlayerIndex == this.game.data.kiPlayerIndex){
+			game.ai.makeNextMove();
+		}
 	}
 	
 	public boolean isPlayersTurn(){
-		//return game.data.activePlayerIndex == game.data.humanPlayerIndex;
-		return true;
+		return game.data.activePlayerIndex == game.data.humanPlayerIndex;
 	}
 	
 	private void removeOldMuehle(Field field) {
@@ -119,7 +122,39 @@ public class GameLogic {
 	public boolean isPlayerInPutPhase() {
 		return game.data.activePlayer.stonesInHand > 0;
 	}
+	
+	public ArrayList<Move> getAllPossibleNextMoves(){
+		if (game.data.activePlayer.isPutPhase() || game.data.activePlayer.isJumpPhase()){
+			return getAllFreeFields();
+		}else {
+			return getAllNeighboorFields();
+		}
+	}
 
+	private ArrayList<Move> getAllNeighboorFields() {
+		ArrayList<Move> free = new ArrayList<>();
+		for (Field from:game.data.getAllPlayerFields(game.data.activePlayer)){
+			for (Field to:from.getFreeNeighboors()){
+				Move m = new Move();
+				m.from = from;
+				m.to = to;
+				free.add(m);
+			}
+		}
+		return free;
+	}
+
+	private ArrayList<Move> getAllFreeFields() {
+		ArrayList<Move> free = new ArrayList<>();
+		for (Field f:game.data.fields.values()){
+			if (f.player == null){
+				Move m = new Move();
+				m.to = f;
+				free.add(m);
+			}
+		}
+		return free;
+	}
 
 	
 
