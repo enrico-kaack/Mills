@@ -18,13 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import de.ek.data.Field;
+import de.ek.data.Game;
 import de.ek.data.GameLogic;
 
 public class View extends JFrame{
 	private Surface area;
-	private GameLogic game;
+	private Game game;
 	
-	public View(GameLogic game) {
+	public View(Game game) {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Mills");
 		this.setSize(new Dimension(900, 900));
@@ -43,7 +44,7 @@ public class View extends JFrame{
 }
 
 class Surface extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
-	private GameLogic game;
+	private Game game;
     private final int DELAY = 150;
     private Timer timer;
     private int width = 600;
@@ -57,7 +58,7 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
     private int mouseY = -1;
     
 
-    public Surface(GameLogic game) {
+    public Surface(Game game) {
     	this.game = game;
         initTimer();
         this.addMouseListener(this);
@@ -97,7 +98,7 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
     }
 
 	private void drawFields(Graphics2D g2d) {
-		for (Field f : game.fields.values()) {
+		for (Field f : game.data.fields.values()) {
 			if (f.player != null){
 				g2d.setPaint(f.player.color);
 				g2d.drawOval(calculateXOfCircle(f), calculateYofCircle(f), stoneSize, stoneSize);

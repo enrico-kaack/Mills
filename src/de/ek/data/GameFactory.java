@@ -6,8 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class GameFactory {
-	public static GameLogic initializeGameArea(){
-		GameLogic game = new GameLogic();
+	public static GameData initializeGameArea(){
+		GameData game = new GameData();
 		
 		
 		//generate player

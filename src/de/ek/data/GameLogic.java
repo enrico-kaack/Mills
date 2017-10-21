@@ -6,24 +6,23 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GameLogic {
-	public HashMap<Integer, Field> fields = new HashMap<>(24, 1f);
-	public ArrayList<Row> rows = new ArrayList<>(17);
-	public ArrayList<Player> players = new ArrayList<>(2);
-	
-	public Player activePlayer;
+	public Game game;
+	public GameLogic(Game game) {
+		this.game = game;
+	}
 	
 	/**
 	 * Places a stone on the field
 	 * @return success
 	 */
 	public Move put(Move move){
-		if (fields.get(move.to.id).player != null){
+		if (game.data.fields.get(move.to.id).player != null){
 			move.allowed = false;
-		}else if (activePlayer.stonesInHand > 0){
-			fields.get(move.to.id).player = activePlayer;
-			activePlayer.placeOneStoneOnField();
+		}else if (game.data.activePlayer.stonesInHand > 0){
+			game.data.fields.get(move.to.id).player = game.data.activePlayer;
+			game.data.activePlayer.placeOneStoneOnField();
 			move.allowed = true;
-			move.muehle = checkForMuehle(fields.get(move.to.id));
+			move.muehle = checkForMuehle(game.data.fields.get(move.to.id));
 		}
 		return move;
 	}
@@ -34,11 +33,11 @@ public class GameLogic {
 	 * @return
 	 */
 	public Move move(Move move){
-		if (fields.get(move.from.id).player == activePlayer && fields.get(move.to.id).player == null){
+		if (game.data.fields.get(move.from.id).player == game.data.activePlayer && game.data.fields.get(move.to.id).player == null){
 			//check if distance from "from" field to "to" field is 1
-			if (fields.get(move.from.id).neighboors.contains(fields.get(move.to.id)) || activePlayer.isJumpPhase()){
-				fields.get(move.from.id).player = null;
-				fields.get(move.to.id).player = activePlayer;
+			if (game.data.fields.get(move.from.id).neighboors.contains(game.data.fields.get(move.to.id)) || game.data.activePlayer.isJumpPhase()){
+				game.data.fields.get(move.from.id).player = null;
+				game.data.fields.get(move.to.id).player = game.data.activePlayer;
 				move.allowed = true;
 				move.muehle = checkForMuehle(move.to);
 				removeOldMuehle(move.from);
@@ -58,7 +57,7 @@ public class GameLogic {
 		boolean muehle = true;
 		for(int i=0; i<field.inRow.size();i++){
 			for(int j=0;j<field.inRow.get(i).fields.size();j++){
-				if (field.inRow.get(i).fields.get(j).player != activePlayer){
+				if (field.inRow.get(i).fields.get(j).player != game.data.activePlayer){
 					muehle = false;
 				}
 			}
@@ -74,11 +73,7 @@ public class GameLogic {
 		r.isMuehle = true;
 	}
 
-	@Override
-	public String toString() {
-		return "Game [fields=" + fields + ", rows=" + rows + ", players=" + players + ", activePlayer=" + activePlayer
-				+ "]";
-	}
+
 	
 
 	
