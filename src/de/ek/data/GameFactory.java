@@ -1,5 +1,6 @@
 package de.ek.data;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,8 +11,8 @@ public class GameFactory {
 		
 		
 		//generate player
-		Player white = new Player(Player.WHITE);
-		Player black = new Player(Player.BLACK);
+		Player white = new Player(Color.WHITE);
+		Player black = new Player(Color.BLACK);
 		game.players.add(white);
 		game.players.add(black);
 		

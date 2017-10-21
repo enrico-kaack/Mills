@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import de.ek.data.Field;
 import de.ek.data.Game;
 
 public class View extends JFrame{
@@ -44,6 +45,8 @@ class Surface extends JPanel implements ActionListener {
     private int width = 600;
     private int height = 600;
     private int margin = 100;
+
+    private int stoneSize= 100;
     private int spaceBetween = width/6;
     
 
@@ -71,13 +74,24 @@ class Surface extends JPanel implements ActionListener {
         g2d.setStroke(new BasicStroke(5));
         
         drawBackground(g2d);
-        drawGameState(g2d);
+        drawFields(g2d);
         
     }
 
-	private void drawGameState(Graphics2D g2d) {
-		// TODO Auto-generated method stub
+	private void drawFields(Graphics2D g2d) {
+		for (Field f : game.fields.values()) {
+			g2d.setPaint(f.player.color);
+			g2d.drawOval(calculateXOfCircle(f), calculateYofCircle(f), stoneSize, stoneSize);
+			
+		}
 		
+	}
+	
+	private int calculateXOfCircle(Field f){
+		return ((int) FieldPositions.fieldPosistionTable.get(f.id).x*this.width) - (this.stoneSize/2);
+	}
+	private int calculateYofCircle(Field f){
+		return ((int) FieldPositions.fieldPosistionTable.get(f.id).y*this.width) - (this.stoneSize/2);
 	}
 
 	private void drawBackground(Graphics2D g2d) {

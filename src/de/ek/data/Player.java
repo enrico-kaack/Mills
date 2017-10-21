@@ -1,14 +1,14 @@
 package de.ek.data;
 
+import java.awt.Color;
+
 public class Player {
-	public static int WHITE = 0;
-	public static int BLACK = 1;
 	
 	public int stonesOnField = 0;
 	public int stonesInHand = 9;
-	public int color;
+	public Color color;
 	
-	public Player(int color) {
+	public Player(Color color) {
 		color = color;
 	}
 	
