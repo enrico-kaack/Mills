@@ -11,6 +11,8 @@ public class GameData {
 	
 	public Player activePlayer;
 	public int activePlayerIndex;
+	public int humanPlayerIndex = 0;
+	public int kiPlayerIndex = 1;
 	
 
 

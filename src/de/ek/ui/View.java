@@ -23,7 +23,9 @@ import javax.swing.Timer;
 
 import de.ek.data.Field;
 import de.ek.data.Game;
+import de.ek.data.GameConfig;
 import de.ek.data.GameLogic;
+import de.ek.data.Player;
 
 public class View extends JFrame{
 	private Surface area;
@@ -90,7 +92,7 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
         	g2d.fill(circle);
         }
         
-        
+        drawStonesOnHand(g2d);
         g2d.translate(100, 100);
         drawBackground(g2d);
         drawFields(g2d);
@@ -100,7 +102,29 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 
     }
 
+	private void drawStonesOnHand(Graphics2D g2d) {
+		for (Player player : game.data.players){
+			int startX = 100;
+			if (player.color == Color.WHITE){
+				//left side
+				startX = 100;
+			}else if (player.color == Color.BLACK){
+				startX = width/2 + 100;
+			}
+			
+			for (int i=0; i<player.stonesInHand;i++){
+				Ellipse2D.Double circle = new Ellipse2D.Double(startX, 50, 30, 30);
+				g2d.setPaint(player.color);
+	        	g2d.fill(circle);
+	        	startX += 32;
+			}
+			
+		}
+		
+	}
+
 	private void drawPlayersTurn(Graphics2D g2d) {
+		g2d.setPaint(Color.BLACK);
 		if (this.game.data.activePlayer.color == Color.WHITE){
 			g2d.drawString("WHITE TURN", this.width/2, 700);
 		}else{
@@ -112,9 +136,12 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 
 	private void drawFields(Graphics2D g2d) {
 		for (Field f : game.data.fields.values()) {
+			
+			
 			if (f.player != null){
 				g2d.setPaint(f.player.color);
-				g2d.drawOval(calculateXOfCircle(f), calculateYofCircle(f), stoneSize, stoneSize);
+				Ellipse2D.Double circle = new Ellipse2D.Double(calculateXOfCircle(f), calculateYofCircle(f), GameConfig.STONE_DIAMETER, GameConfig.STONE_DIAMETER);
+	        	g2d.fill(circle);
 			}
 
 			
@@ -123,10 +150,10 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 	}
 	
 	private int calculateXOfCircle(Field f){
-		return ((int) FieldPositions.fieldPosistionTable.get(f.id).x*this.width) - (this.stoneSize/2);
+		return (int) (FieldPositions.fieldPosistionTable.get(f.id).x*GameConfig.GAME_AREA_WIDTH) - (GameConfig.STONE_DIAMETER/2);
 	}
 	private int calculateYofCircle(Field f){
-		return ((int) FieldPositions.fieldPosistionTable.get(f.id).y*this.width) - (this.stoneSize/2);
+		return (int) (FieldPositions.fieldPosistionTable.get(f.id).y*GameConfig.GAME_AREA_HEIGHT) - (GameConfig.STONE_DIAMETER/2);
 	}
 
 	private void drawBackground(Graphics2D g2d) {
@@ -178,7 +205,9 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
     }
 
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+		game.uiHandler.clickOnField(e.getX(), e.getY());
+	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {}

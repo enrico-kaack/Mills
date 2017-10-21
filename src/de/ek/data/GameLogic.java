@@ -56,7 +56,12 @@ public class GameLogic {
 		}
 		return this.game.data.activePlayer;
 	}
-
+	
+	public boolean isPlayersTurn(){
+		//return game.data.activePlayerIndex == game.data.humanPlayerIndex;
+		return true;
+	}
+	
 	private void removeOldMuehle(Field field) {
 		for(int i=0; i<field.inRow.size();i++){
 			field.inRow.get(i).isMuehle = false;
@@ -82,6 +87,10 @@ public class GameLogic {
 	
 	private void markAsMuehle(Row r){
 		r.isMuehle = true;
+	}
+
+	public boolean isPlayerInPutPhase() {
+		return game.data.activePlayer.stonesInHand > 0;
 	}
 
 
