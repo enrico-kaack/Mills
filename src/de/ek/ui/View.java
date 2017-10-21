@@ -4,8 +4,11 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -89,7 +92,6 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
         
         
         drawLiftedStone(g2d);
-        
         drawStonesOnHand(g2d);
         g2d.translate(100, 100);
         drawBackground(g2d);
@@ -130,12 +132,26 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 	}
 
 	private void drawPlayersTurn(Graphics2D g2d) {
-		g2d.setPaint(Color.BLACK);
+		String text ="Hi";
 		if (this.game.data.activePlayer.color == Color.WHITE){
-			g2d.drawString("WHITE TURN", this.width/2, 700);
+			text = "WHITE'S TURN";
 		}else{
-			g2d.drawString("BLACK TURN", this.width/2, 700);
+			text = "BLACK'S TURN";
 		}
+		
+		
+		Font font = new Font("verdana", Font.BOLD, 22);
+		Rectangle rect = new Rectangle(0, 600, GameConfig.GAME_AREA_WIDTH, 200);
+	    FontMetrics metrics = g2d.getFontMetrics(font);
+	    // Determine the X coordinate for the text
+	    int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+
+	    int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+	    // Set the font
+	    g2d.setFont(font);
+	    g2d.setPaint(Color.BLACK);
+	    // Draw the String
+	    g2d.drawString(text, x, y);		
 		
 		
 	}
