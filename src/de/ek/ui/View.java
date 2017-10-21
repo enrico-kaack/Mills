@@ -89,6 +89,7 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
         
         
         if (this.mouseX != -1 && this.mouseY != -1){
+        	g2d.setPaint(game.data.activePlayer.color);
         	Ellipse2D.Double circle = new Ellipse2D.Double(this.mouseX-10, this.mouseY-10, 20, 20);
         	g2d.fill(circle);
         }
@@ -207,7 +208,9 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		game.uiHandler.clickOnField(e.getX(), e.getY());
+		if (game.data.activePlayer.isPutPhase() || game.uiHandler.stateKickStone){
+			game.uiHandler.clickOnField(e.getX(), e.getY());
+		}
 	}
 
 	@Override
@@ -218,24 +221,29 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
-		repaint();
+		if (game.data.activePlayer.isMovePhase() && game.uiHandler.isLiftable(e.getX(), e.getY())){
+			this.mouseX = e.getX();
+			this.mouseY = e.getY();
+			repaint();
+		}
+		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		this.mouseX = -1;
-		this.mouseY = -1;
-		repaint();
+		if (game.uiHandler.stateLiftedStone){
+			game.uiHandler.dropLiftedStone(e.getX(), e.getY());
+		}
 		
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
-		repaint();
+		if (game.uiHandler.stateLiftedStone){
+			this.mouseX = e.getX();
+			this.mouseY = e.getY();
+			repaint();
+		}
 	}
 
 	@Override

@@ -21,7 +21,14 @@ public class Player {
 	public boolean isJumpPhase(){
 		return (stonesOnField < 4 && stonesInHand == 0);
 	}
+	
+	public boolean isPutPhase(){
+		return (stonesInHand > 0);
+	}
 
+	public boolean isMovePhase(){
+		return (stonesInHand == 0);
+	}
 	@Override
 	public String toString() {
 		return "Player [stonesOnField=" + stonesOnField + ", stonesInHand=" + stonesInHand + ", color=" + color + "]";
