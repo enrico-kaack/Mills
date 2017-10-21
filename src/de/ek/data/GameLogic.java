@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-public class Game {
+public class GameLogic {
 	public HashMap<Integer, Field> fields = new HashMap<>(24, 1f);
 	public ArrayList<Row> rows = new ArrayList<>(17);
 	public ArrayList<Player> players = new ArrayList<>(2);

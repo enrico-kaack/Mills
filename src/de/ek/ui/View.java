@@ -18,13 +18,13 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import de.ek.data.Field;
-import de.ek.data.Game;
+import de.ek.data.GameLogic;
 
 public class View extends JFrame{
 	private Surface area;
-	private Game game;
+	private GameLogic game;
 	
-	public View(Game game) {
+	public View(GameLogic game) {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Mills");
 		this.setSize(new Dimension(900, 900));
@@ -43,7 +43,7 @@ public class View extends JFrame{
 }
 
 class Surface extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
-	private Game game;
+	private GameLogic game;
     private final int DELAY = 150;
     private Timer timer;
     private int width = 600;
@@ -57,7 +57,7 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
     private int mouseY = -1;
     
 
-    public Surface(Game game) {
+    public Surface(GameLogic game) {
     	this.game = game;
         initTimer();
         this.addMouseListener(this);

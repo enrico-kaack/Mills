@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import de.ek.data.Field;
-import de.ek.data.Game;
+import de.ek.data.GameLogic;
 import de.ek.data.GameFactory;
 import de.ek.data.Move;
 
@@ -13,7 +13,7 @@ public class PutRuleTest {
 
 	@Test
 	public void succeedOnEmptyField() {
-		Game g = GameFactory.initializeGameArea();
+		GameLogic g = GameFactory.initializeGameArea();
 		g.activePlayer = g.players.get(0);
 		
 		Move m = new Move();
@@ -29,7 +29,7 @@ public class PutRuleTest {
 
 	@Test
 	public void failOnEmptyHand() {
-		Game g = GameFactory.initializeGameArea();
+		GameLogic g = GameFactory.initializeGameArea();
 		g.activePlayer = g.players.get(0);
 		g.activePlayer.stonesInHand = 0;
 		
@@ -44,7 +44,7 @@ public class PutRuleTest {
 
 	@Test
 	public void failOnOccupiedField() {
-		Game g = GameFactory.initializeGameArea();
+		GameLogic g = GameFactory.initializeGameArea();
 		g.activePlayer = g.players.get(0);
 		
 		g.fields.get(1).player = g.activePlayer;
@@ -63,7 +63,7 @@ public class PutRuleTest {
 	
 	@Test
 	public void putWithMill() {
-		Game g = GameFactory.initializeGameArea();
+		GameLogic g = GameFactory.initializeGameArea();
 		g.activePlayer = g.players.get(0);
 		
 		g.fields.get(0).player = g.activePlayer;
