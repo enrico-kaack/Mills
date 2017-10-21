@@ -94,10 +94,21 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
         g2d.translate(100, 100);
         drawBackground(g2d);
         drawFields(g2d);
+        drawPlayersTurn(g2d);
         
         
 
     }
+
+	private void drawPlayersTurn(Graphics2D g2d) {
+		if (this.game.data.activePlayer.color == Color.WHITE){
+			g2d.drawString("WHITE TURN", this.width/2, 700);
+		}else{
+			g2d.drawString("BLACK TURN", this.width/2, 700);
+		}
+		
+		
+	}
 
 	private void drawFields(Graphics2D g2d) {
 		for (Field f : game.data.fields.values()) {

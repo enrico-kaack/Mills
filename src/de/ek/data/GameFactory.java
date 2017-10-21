@@ -15,7 +15,7 @@ public class GameFactory {
 		Player black = new Player(Color.BLACK);
 		game.players.add(white);
 		game.players.add(black);
-		game.activePlayer = white;
+		game.activePlayer = game.players.get(0);
 		game.activePlayerIndex = 0;
 		
 		//generate fields

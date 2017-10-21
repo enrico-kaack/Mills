@@ -9,7 +9,7 @@ public class Player {
 	public Color color;
 	
 	public Player(Color color) {
-		color = color;
+		this.color = color;
 	}
 	
 	public void placeOneStoneOnField(){
