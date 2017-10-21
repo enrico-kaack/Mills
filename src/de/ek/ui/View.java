@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -82,7 +83,8 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
         
         
         if (this.mouseX != -1 && this.mouseY != -1){
-        	g2d.drawOval(this.mouseX-20, this.mouseY-20, 40, 40);
+        	Ellipse2D.Double circle = new Ellipse2D.Double(this.mouseX-10, this.mouseY-10, 20, 20);
+        	g2d.fill(circle);
         }
         
         
