@@ -69,8 +69,8 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 
     private void initTimer() {
 
-        //timer = new Timer(DELAY, this);
-        //timer.start();
+        timer = new Timer(DELAY, this);
+        timer.start();
     }
     
     public Timer getTimer() {
@@ -156,8 +156,8 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 
     @Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
+        
         doDrawing(g);
     }
 

@@ -45,6 +45,17 @@ public class GameLogic {
 		}
 		return move;
 	}
+	
+	public Player switchPlayer(){
+		if (this.game.data.activePlayerIndex == 0){
+			this.game.data.activePlayerIndex = 1;
+			this.game.data.activePlayer = this.game.data.players.get(this.game.data.activePlayerIndex);
+		}else if(this.game.data.activePlayerIndex == 1){
+			this.game.data.activePlayerIndex = 0;
+			this.game.data.activePlayer = this.game.data.players.get(this.game.data.activePlayerIndex);
+		}
+		return this.game.data.activePlayer;
+	}
 
 	private void removeOldMuehle(Field field) {
 		for(int i=0; i<field.inRow.size();i++){

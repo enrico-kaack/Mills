@@ -10,6 +10,7 @@ public class GameData {
 	public ArrayList<Player> players = new ArrayList<>(2);
 	
 	public Player activePlayer;
+	public int activePlayerIndex;
 	
 
 
