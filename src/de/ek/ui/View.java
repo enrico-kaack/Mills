@@ -13,15 +13,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import de.ek.data.Game;
+
 public class View extends JFrame{
-	private Surface area = new Surface();
+	private Surface area;
+	private Game game;
 	
-	public View() {
+	public View(Game game) {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Mills");
 		this.setSize(new Dimension(900, 900));
 		this.setVisible(true);
-
+		
+		area = new Surface(game);
 		this.add(area);
 		
 		generateBackground();
@@ -34,7 +38,7 @@ public class View extends JFrame{
 }
 
 class Surface extends JPanel implements ActionListener {
-
+	private Game game;
     private final int DELAY = 150;
     private Timer timer;
     private int width = 600;
@@ -43,8 +47,8 @@ class Surface extends JPanel implements ActionListener {
     private int spaceBetween = width/6;
     
 
-    public Surface() {
-
+    public Surface(Game game) {
+    	this.game = game;
         initTimer();
     }
 
