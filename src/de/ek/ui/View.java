@@ -7,6 +7,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -25,8 +28,8 @@ public class View extends JFrame{
 		this.setTitle("Mills");
 		this.setSize(new Dimension(900, 900));
 		this.setVisible(true);
-		
-		area = new Surface(game);
+		this.game = game;
+		area = new Surface(this.game);
 		this.add(area);
 		
 		generateBackground();
@@ -38,27 +41,32 @@ public class View extends JFrame{
 	}
 }
 
-class Surface extends JPanel implements ActionListener {
+class Surface extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
 	private Game game;
     private final int DELAY = 150;
     private Timer timer;
     private int width = 600;
     private int height = 600;
-    private int margin = 100;
+    
 
     private int stoneSize= 100;
     private int spaceBetween = width/6;
+    
+    private int mouseX = -1;
+    private int mouseY = -1;
     
 
     public Surface(Game game) {
     	this.game = game;
         initTimer();
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
     }
 
     private void initTimer() {
 
-        timer = new Timer(DELAY, this);
-        timer.start();
+        //timer = new Timer(DELAY, this);
+        //timer.start();
     }
     
     public Timer getTimer() {
@@ -69,19 +77,30 @@ class Surface extends JPanel implements ActionListener {
     private void doDrawing(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
-        g2d.translate(100, 100);
         g2d.setPaint(Color.BLACK);
         g2d.setStroke(new BasicStroke(5));
         
+        
+        if (this.mouseX != -1 && this.mouseY != -1){
+        	g2d.drawOval(this.mouseX-20, this.mouseY-20, 40, 40);
+        }
+        
+        
+        g2d.translate(100, 100);
         drawBackground(g2d);
         drawFields(g2d);
         
+        
+
     }
 
 	private void drawFields(Graphics2D g2d) {
 		for (Field f : game.fields.values()) {
-			g2d.setPaint(f.player.color);
-			g2d.drawOval(calculateXOfCircle(f), calculateYofCircle(f), stoneSize, stoneSize);
+			if (f.player != null){
+				g2d.setPaint(f.player.color);
+				g2d.drawOval(calculateXOfCircle(f), calculateYofCircle(f), stoneSize, stoneSize);
+			}
+
 			
 		}
 		
@@ -95,6 +114,9 @@ class Surface extends JPanel implements ActionListener {
 	}
 
 	private void drawBackground(Graphics2D g2d) {
+        g2d.setPaint(Color.BLACK);
+        g2d.setStroke(new BasicStroke(5));
+		
 		//Draw the background field of mil
         //outer ring
         g2d.drawLine(0, 0, width, 0);
@@ -138,4 +160,41 @@ class Surface extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         repaint();
     }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
+		repaint();
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		this.mouseX = -1;
+		this.mouseY = -1;
+		repaint();
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
+		repaint();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
