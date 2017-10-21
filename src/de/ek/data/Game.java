@@ -3,7 +3,6 @@ import de.ek.ui.FieldPositions;
 import de.ek.ui.View;
 
 public class Game {
-	public boolean isPlayerTurn = true;
 	
 	public View view;
 	public GameData data;

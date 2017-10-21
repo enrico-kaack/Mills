@@ -1,6 +1,7 @@
 package de.ek.ui;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,8 +14,11 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import de.ek.data.Field;
@@ -28,19 +32,17 @@ public class View extends JFrame{
 	public View(Game game) {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Mills");
-		this.setSize(new Dimension(900, 900));
+		this.setSize(new Dimension(850, 1000));
 		this.setVisible(true);
+
 		this.game = game;
+		
 		area = new Surface(this.game);
 		this.add(area);
-		
-		generateBackground();
+
 	}
 
-	private void generateBackground() {
-		
-		
-	}
+
 }
 
 class Surface extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
