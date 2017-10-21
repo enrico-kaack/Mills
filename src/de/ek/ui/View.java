@@ -97,10 +97,30 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
         drawBackground(g2d);
         drawFields(g2d);
         drawPlayersTurn(g2d);
+        drawKickNotifier(g2d);
         
         
 
     }
+
+	private void drawKickNotifier(Graphics2D g2d) {
+		if (game.uiHandler.stateKickStone){		
+			String text ="KICK AN ENEMY STONE";
+			
+			Font font = new Font("verdana", Font.BOLD, 22);
+			Rectangle rect = new Rectangle(0, 600, GameConfig.GAME_AREA_WIDTH, 100);
+		    FontMetrics metrics = g2d.getFontMetrics(font);
+		    // Determine the X coordinate for the text
+		    int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+	
+		    int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+		    // Set the font
+		    g2d.setFont(font);
+		    g2d.setPaint(Color.RED);
+		    // Draw the String
+		    g2d.drawString(text, x, y);		
+		}
+	}
 
 	private void drawLiftedStone(Graphics2D g2d) {
 		if (this.mouseX != -1 && this.mouseY != -1){
