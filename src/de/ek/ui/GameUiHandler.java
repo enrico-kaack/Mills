@@ -93,7 +93,7 @@ public class GameUiHandler {
 
 	private int calculateFieldIndexBasedOnMouseClick(int x, int y) {
 		for (Field f : game.data.fields.values()){
-			if (calcDistance(x, y, f) < GameConfig.STONE_DIAMETER){
+			if (calcDistance(x, y, f) < GameConfig.STONE_DIAMETER+10){
 				return f.id;
 			}
 		}

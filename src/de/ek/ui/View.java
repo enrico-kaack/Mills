@@ -112,20 +112,27 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 
 	private void drawStonesOnHand(Graphics2D g2d) {
 		for (Player player : game.data.players){
-			int startX = 100;
+			int startX = GameConfig.GAME_AREA_WIDTH/2 + 100;
+			int offset = GameConfig.STONE_DIAMETER +3;
+			int width = 0;
 			if (player.color == Color.WHITE){
 				//left side
-				startX = 100;
+				for (int i=0; i< player.stonesInHand;i++){
+					startX -= offset;
+					Ellipse2D.Double circle = new Ellipse2D.Double(startX, 50, GameConfig.STONE_DIAMETER, GameConfig.STONE_DIAMETER);
+					g2d.setPaint(player.color);
+		        	g2d.fill(circle);
+		        	
+				}
 			}else if (player.color == Color.BLACK){
-				startX = width/2 + 100;
+				for (int i=0; i< player.stonesInHand;i++){
+					Ellipse2D.Double circle = new Ellipse2D.Double(startX, 50, GameConfig.STONE_DIAMETER, GameConfig.STONE_DIAMETER);
+					g2d.setPaint(player.color);
+		        	g2d.fill(circle);
+		        	startX += offset;
+				}
 			}
 			
-			for (int i=0; i<player.stonesInHand;i++){
-				Ellipse2D.Double circle = new Ellipse2D.Double(startX, 50, 30, 30);
-				g2d.setPaint(player.color);
-	        	g2d.fill(circle);
-	        	startX += 32;
-			}
 			
 		}
 		
