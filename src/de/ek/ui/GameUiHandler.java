@@ -7,26 +7,51 @@ import de.ek.data.Move;
 
 public class GameUiHandler {
 	public Game game;
+	public LogicResponseListener listener;
+	public boolean stateKickStone = false;
+	
 	public GameUiHandler(Game game) {
 		this.game = game;
 	}
 	
+	public void setListener(LogicResponseListener listener){
+		this.listener = listener;
+	}
+	
 	public void clickOnField(int x, int y){
-		if (game.logic.isPlayersTurn()){
+		if (game.logic.isPlayersTurn() && !stateKickStone){
 			int fieldNumber = calculateFieldIndexBasedOnMouseClick(x, y);
 			if (fieldNumber > -1){
 				if (game.logic.isPlayerInPutPhase()){
 					Move m = new Move();
 					m.to = game.data.fields.get(fieldNumber);
-					System.out.println(fieldNumber);
 					handleLogicResponse(game.logic.put(m));
 					
 				}
 			}
 		}
+		if (game.logic.isPlayersTurn() && stateKickStone){
+			int fieldNumber = calculateFieldIndexBasedOnMouseClick(x, y);
+			if (fieldNumber > -1){
+					Move m = new Move();
+					m.to = game.data.fields.get(fieldNumber);
+					handleLogicResponse(game.logic.kickStone(m));
+			}
+		}
 	}
 	
 	private void handleLogicResponse(Move m){
+		if (m.allowed && m.muehle){
+			listener.onMillDetected();
+			stateKickStone = true;
+		}else if (!m.allowed){
+			listener.onMoveForbidden();
+		}else{
+			game.logic.switchPlayer();
+			if (stateKickStone){
+				stateKickStone = false;
+			}
+		}
 		
 	}
 

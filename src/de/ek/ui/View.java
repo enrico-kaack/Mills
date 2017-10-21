@@ -47,7 +47,7 @@ public class View extends JFrame{
 
 }
 
-class Surface extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
+class Surface extends JPanel implements ActionListener, MouseListener, MouseMotionListener, LogicResponseListener {
 	private Game game;
     private final int DELAY = 150;
     private Timer timer;
@@ -67,6 +67,7 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
         initTimer();
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        this.game.uiHandler.setListener(this);
     }
 
     private void initTimer() {
@@ -240,6 +241,18 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMoveForbidden() {
+		System.err.println("Move forbidden");
+		
+	}
+
+	@Override
+	public void onMillDetected() {
+		System.out.println("Bitte schlagen");
 		
 	}
 }

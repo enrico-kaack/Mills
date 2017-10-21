@@ -46,6 +46,29 @@ public class GameLogic {
 		return move;
 	}
 	
+	public Move kickStone(Move m){
+		if (game.data.activePlayer != m.to.player){
+			if (!isInMill(m.to)){
+				game.data.activePlayer.kickedStone++;
+				m.to.player = null;
+				m.allowed = true;
+				return m;
+			}
+		}
+		m.allowed = false;;
+		return m;
+	}
+	
+	private boolean isInMill(Field to) {
+		for (Row r: to.inRow){
+			if (r.isMuehle){
+				return true;
+			}
+		}
+		return false;
+		
+	}
+
 	public Player switchPlayer(){
 		if (this.game.data.activePlayerIndex == 0){
 			this.game.data.activePlayerIndex = 1;
@@ -70,18 +93,21 @@ public class GameLogic {
 	}
 
 	private boolean checkForMuehle(Field field) {
-		boolean muehle = true;
+		
 		for(int i=0; i<field.inRow.size();i++){
+			boolean muehle = true;
 			for(int j=0;j<field.inRow.get(i).fields.size();j++){
-				if (field.inRow.get(i).fields.get(j).player != game.data.activePlayer){
+				System.out.println(game.data.activePlayer.equals(field.inRow.get(i).fields.get(j).player));
+				if (!game.data.activePlayer.equals(field.inRow.get(i).fields.get(j).player)){
 					muehle = false;
 				}
 			}
-			if (muehle)
+			if (muehle){
 				markAsMuehle(field.inRow.get(i));
 				return muehle;
+			}
 		}
-		return muehle;
+		return false;
 		
 	}
 	
