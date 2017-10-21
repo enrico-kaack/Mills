@@ -233,6 +233,8 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
 	public void mouseReleased(MouseEvent e) {
 		if (game.uiHandler.stateLiftedStone){
 			game.uiHandler.dropLiftedStone(e.getX(), e.getY());
+			this.mouseX = -1;
+			this.mouseY = -1;
 		}
 		
 	}

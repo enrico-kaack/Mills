@@ -50,6 +50,7 @@ public class GameLogic {
 		if (game.data.activePlayer != m.to.player){
 			if (!isInMill(m.to)){
 				game.data.activePlayer.kickedStone++;
+				m.to.player.stonesOnField--;
 				m.to.player = null;
 				m.allowed = true;
 				return m;
