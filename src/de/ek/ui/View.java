@@ -88,11 +88,7 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
         g2d.setStroke(new BasicStroke(5));
         
         
-        if (this.mouseX != -1 && this.mouseY != -1){
-        	g2d.setPaint(game.data.activePlayer.color);
-        	Ellipse2D.Double circle = new Ellipse2D.Double(this.mouseX-10, this.mouseY-10, 20, 20);
-        	g2d.fill(circle);
-        }
+        drawLiftedStone(g2d);
         
         drawStonesOnHand(g2d);
         g2d.translate(100, 100);
@@ -103,6 +99,14 @@ class Surface extends JPanel implements ActionListener, MouseListener, MouseMoti
         
 
     }
+
+	private void drawLiftedStone(Graphics2D g2d) {
+		if (this.mouseX != -1 && this.mouseY != -1){
+        	g2d.setPaint(game.data.activePlayer.color);
+        	Ellipse2D.Double circle = new Ellipse2D.Double(this.mouseX-GameConfig.STONE_DIAMETER/2, this.mouseY-GameConfig.STONE_DIAMETER/2, GameConfig.STONE_DIAMETER, GameConfig.STONE_DIAMETER);
+        	g2d.fill(circle);
+        }
+	}
 
 	private void drawStonesOnHand(Graphics2D g2d) {
 		for (Player player : game.data.players){
