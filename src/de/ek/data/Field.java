@@ -17,7 +17,7 @@ public class Field {
 	public ArrayList<Field> getFreeNeighboors(){
 		ArrayList<Field> freeNeighboors = new ArrayList<>();
 		for (Field f: neighboors){
-			if (f.player == null){
+			if (f!=null && f.player == null){
 				freeNeighboors.add(f);
 			}
 		}
@@ -27,10 +27,7 @@ public class Field {
 	}
 	
 	
-	@Override
-	public String toString() {
-		return "Field [id=" + id + ", player=" + player + ", neighboors=" + neighboors + ", inRow=" + inRow + "]";
-	}
+
 	
 	
 	

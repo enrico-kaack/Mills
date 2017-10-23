@@ -15,13 +15,13 @@ public class GameData {
 	public int kiPlayerIndex = 1;
 	
 	public ArrayList<Field> getAllPlayerFields(Player player){
-		ArrayList<Field> fields = new ArrayList<>();
-		for (Field f:fields){
+		ArrayList<Field> fieldsOfPlayer = new ArrayList<>();
+		for (Field f:this.fields.values()){
 			if (player.equals(f.player)){
-				fields.add(f);
+				fieldsOfPlayer.add(f);
 			}
 		}
-		return fields;
+		return fieldsOfPlayer;
 	}
 	
 

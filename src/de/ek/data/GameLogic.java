@@ -101,7 +101,6 @@ public class GameLogic {
 		for(int i=0; i<field.inRow.size();i++){
 			boolean muehle = true;
 			for(int j=0;j<field.inRow.get(i).fields.size();j++){
-				System.out.println(game.data.activePlayer.equals(field.inRow.get(i).fields.get(j).player));
 				if (!game.data.activePlayer.equals(field.inRow.get(i).fields.get(j).player)){
 					muehle = false;
 				}

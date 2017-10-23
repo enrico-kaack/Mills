@@ -61,7 +61,6 @@ public class GameUiHandler {
 		if (game.logic.isPlayersTurn() && stateLiftedStone){
 			int fieldNumber = calculateFieldIndexBasedOnMouseClick(x, y);
 			if (fieldNumber > -1){
-				System.out.println("Droped at " + fieldNumber);
 					this.liftMove.to = game.data.fields.get(fieldNumber);
 					handleLogicResponse(game.logic.move(this.liftMove));
 					
